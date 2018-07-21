@@ -113,7 +113,7 @@ class Complete extends PureComponent {
             <ul className="CompleteDetails">
               <li>
                 <div className="CompleteDetailTitle">訂單編號 :</div>
-                <div className="CompleteDetailContent">{`${parseInt(new Date())}${coffee.pid}`}</div>
+                <div className="CompleteDetailContent">{`${(new Date()).getTime()}${coffee.pid}`}</div>
               </li>
               
               <li>
