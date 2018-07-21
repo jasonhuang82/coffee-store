@@ -1,0 +1,51 @@
+@import '~/style/var.scss';
+
+html,body{
+  background-color: $color-dark-blue;
+  color: white;
+  font-family: 微軟正黑體;
+  font-weight: bold;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-weight: bold;
+}
+ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+input{
+  display: block;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.btn {
+  &.btn-primary,
+  &.btn-primary:not(:disabled):not(.disabled).active,
+  &.btn-primary:not(:disabled):not(.disabled):active{
+    &,
+    &:hover,
+    &:active,
+    &:visited,
+    &:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    &{
+      background-color: transparent;
+      border: 1px solid #fff;
+      transition: .3s;
+    }
+    &:hover{
+      background-color: #fff;
+      color: $color-dark-blue;
+    }
+  }
+}
+
+.App {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}

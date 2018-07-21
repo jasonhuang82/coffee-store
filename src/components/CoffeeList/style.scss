@@ -1,0 +1,138 @@
+@import '~/style/var.scss';
+select {
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+}
+
+@mixin size($w, $h:$w) {
+  width: $w;
+  height: $h;
+}
+
+.coffeeType {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(#fff, .1);
+  transition: background-color 0.5s;
+  cursor: pointer;
+  user-select: none;
+  
+  h4{
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: rgba(#fff, .05);
+  }
+  .num {
+    width: 30%;
+    padding-right: 30px;
+    font-size: 60px;
+    font-weight: bold;
+  }
+  .cupContainer {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    @media (min-width: $screem-md) {
+      justify-content: flex-start;
+    }
+  }
+  // 杯子
+  .cup {
+    @include size(70px, 55px);
+    position: relative;
+    margin-right: 15px;
+    
+    border: 4px solid #fff;
+    border-top: none;
+    border-radius: 0px 0px 50px 50px;
+    padding-top: 5px;
+    @media (min-width: $screem-md) {
+      margin-right: 50px;
+    }
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 40%;
+      left: 100%;
+      transform: translateY(-50%);
+      border: 4px solid #fff;
+      border-left: none;
+      border-radius: 0px 50px 50px 0px;
+      @include size(15px, 20px);
+    }
+    &.small {
+      @include size(50px, 40px);
+    }
+    &.medium {
+      @include size(65px, 45px);
+    }
+    &.big {
+      @include size(80px, 50px);
+    }
+    &.mock {
+      @include size(60px, 90px);
+      &,
+      .ingradients {
+        border-radius: 0;
+      }
+    }
+  }
+  // 成分區
+  .ingradients {
+    & {
+      display: flex;
+      flex-direction: column-reverse;
+      height: 100%;
+      border-radius: 0px 0px 50px 50px;
+      overflow: hidden;
+    }
+    >div {
+      height: 10px;
+    }
+    .coffee {
+      background-color: #66491a;
+    }
+    .milk {
+      background-color: #f7d8bb;
+    }
+    .water {
+      background-color: #259bce;
+    }
+    .bubble {
+      background-color: #eee;
+    }
+  }
+
+  // 控制面板
+  .control {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .controlPanel{
+    display: none;
+  }
+  &.isEdit {
+    .controlPanel {
+      display: block;
+    }
+
+    // 編輯模式控制面板
+    .control{
+      display: block; 
+    }
+
+    button.btn{
+      width: 100%;
+    }
+  }
+}

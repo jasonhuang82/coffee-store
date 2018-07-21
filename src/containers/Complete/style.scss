@@ -1,0 +1,24 @@
+
+.Complete {
+  .CompleteProductInfo{
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: rgba(white,.1);
+  }
+  ul.CompleteDetails{
+    margin: 15px 0px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    > li {
+      &{
+        display: flex;
+      }
+      .CompleteDetailTitle{
+        width: 30%;
+      }
+      .CompleteDetailContent{}
+    }
+  }
+}
