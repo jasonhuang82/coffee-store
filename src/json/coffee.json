@@ -1,0 +1,40 @@
+{
+  "coffees": [
+    {
+      "pid": "001",
+      "name": "Expresso",
+      "coffee": 80,
+      "bubble": 0,
+      "water": 0,
+      "milk": 0,
+      "type": "small"
+    },
+    {
+      "pid": "002",
+      "name": "Americano",
+      "coffee": 40,
+      "bubble": 0,
+      "water": 40,
+      "milk": 0,
+      "type": "medium"
+    },
+    {
+      "pid": "003",
+      "name": "Cappuccino",
+      "coffee": 40,
+      "bubble": 0,
+      "water": 0,
+      "milk": 50,
+      "type": "big"
+    },
+    {
+      "pid": "004",
+      "name": "Latte",
+      "coffee": 30,
+      "bubble": 30,
+      "water": 0,
+      "milk": 30,
+      "type": "mock"
+    }
+  ]
+}
