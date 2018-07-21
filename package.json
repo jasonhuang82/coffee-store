@@ -2,7 +2,7 @@
   "name": "react-complete-guide",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jasonhuang82/github.io/coffee-store/",
+  "homepage": "https://jasonhuang82.github.io/coffee-store/",
   "dependencies": {
     "autoprefixer": "7.1.2",
     "axios": "^0.18.0",
@@ -27,6 +27,7 @@
     "extract-text-webpack-plugin": "3.0.0",
     "file-loader": "0.11.2",
     "fs-extra": "3.0.1",
+    "gh-pages": "^1.2.0",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "node-sass": "^4.9.2",
