@@ -4,7 +4,7 @@ import {
   withRouter
 } from "react-router-dom";
 import queryString from "query-string";
-
+// import queryString from "~/third-party/queryString";
 import './style.scss';
 
 import {
@@ -113,7 +113,7 @@ class Complete extends PureComponent {
             <ul className="CompleteDetails">
               <li>
                 <div className="CompleteDetailTitle">訂單編號 :</div>
-                <div className="CompleteDetailContent">{`${+new Date()}${coffee.pid}`}</div>
+                <div className="CompleteDetailContent">{`${parseInt(new Date())}${coffee.pid}`}</div>
               </li>
               
               <li>

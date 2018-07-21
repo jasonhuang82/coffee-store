@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
+// import queryString from "~/third-party/queryString";
 import './style.scss';
 import {
   changeSizeTypeAction,
