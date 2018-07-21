@@ -1,17 +1,38 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 import './style.scss';
-// import { addPersonHandler, delPersonHandler } from "../actions";
+import {
+  changeSizeTypeAction,
+  changeProportionAction,
+  getCoffeeDataAction,
+  watchCoffeDataSagaAction
+} from "~/actions";
 import CoffeeList from "~/components/CoffeeList";
 
 class Proportion extends PureComponent {
   state = {
   };
-  componentDidMount() { 
-    // console.log(this.props);
-    
+  componentDidMount() {
+    this.checkRouter();
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    // console.log('coffee', this.props);
+    this.checkRouter();
+  }
+
+  checkRouter = () => {
+    const {
+      watchCoffeeData,
+      coffees,
+      history,
+      location
+    } = this.props;
+    watchCoffeeData(coffees, history, location);
+  }
+
   // 實作cx套件
   addClass = (moreClass = [], futherClass={}) => {
     const mapClass = (initAry, mapAry) => {
@@ -51,10 +72,21 @@ class Proportion extends PureComponent {
     // noMatch
     return "";
   };
-  
+
+  urlQuery = () => queryString.parse(this.props.location.search);
+
+  goOrderPage = (pid) => {
+    this.props.history.push({
+      pathname: `/complete`,
+      search: `?pid=${pid}`,
+      query: {
+        isOrder: true
+      }
+    });
+  }
   render() {
     let idx = 0;
-    let pid = this.props.location.search.replace('?','').split('=')[1] || '001';
+    let pid = this.urlQuery().pid;
     let coffee = this.props.coffees.find((items,index) => {
       if(items.pid === pid) {
         idx = index;
@@ -62,8 +94,8 @@ class Proportion extends PureComponent {
       }
       return false;
     })
-    // console.log('coffee',coffee);
     
+    if (coffee === undefined) return <div className="d-flex justify-content-center align-items-center">資料加載中...</div>
     return <div className="Proportion container">
         <div className="coffeeTypes">
           <CoffeeList 
@@ -71,12 +103,7 @@ class Proportion extends PureComponent {
             coffeeIdx={idx}
             coffeeData = {coffee}
             isEdit
-            onClick={e => {
-              this.props.history.push({
-                pathname: `/complete`,
-                search: `?pid=${coffee.pid}`                  
-              });
-            }}
+            onClick={e => this.goOrderPage(coffee.pid)}
           />
           <div className="d-flex justify-content-center align-items-center py-4">
             <button className="btn btn-primary mr-4"
@@ -87,12 +114,7 @@ class Proportion extends PureComponent {
               想換尺寸嗎
             </button>
             <button className="btn btn-primary" 
-              onClick={e => {
-                this.props.history.push({
-                  pathname: `/complete`,
-                  search: `?pid=${coffee.pid}`                  
-                });
-              }}
+              onClick={e => this.goOrderPage(coffee.pid)}
             >
               來去預定嚕
             </button>
@@ -110,8 +132,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeSizeType: (index, value) => dispatch({ type:'CHANGE_SIZE_TYPE',index,value}),
-    changeProportion: (proportion, index, value) => dispatch({ type: 'CHANGE_PROPORTION', proportion, index, value })
+    watchCoffeeData: (coffees = [], history, search) => dispatch(watchCoffeDataSagaAction(coffees, history, search)),
+    getCoffeesData: () => dispatch(getCoffeeDataAction()),
+    changeSizeType: (index, value) => dispatch(changeSizeTypeAction(index,value) ),
+    changeProportion: (proportion, index, value) => dispatch(changeProportionAction( proportion, index, value))
   }
 }
 

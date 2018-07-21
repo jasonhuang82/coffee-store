@@ -25,10 +25,19 @@ import Complete from "./containers/Complete";
 </ul>
 */
 class App extends Component {
-  
+  baseName = (() => {
+    if (process.env.NODE_ENV === 'development') return  '/';
+    if (process.env.NODE_ENV === 'production') return '/coffee-store';
+    
+  })()
+  componentDidMount() {
+    console.log('process.env', process.env.NODE_ENV);
+    
+    
+  }
   render() {
     return (
-      <Router basename="/">
+      <Router basename={this.baseName}>
         <ScrollToTop>
           <div className="App">
             <Header />

@@ -3,26 +3,22 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import './style.scss';
 // import { addPersonHandler, delPersonHandler } from "../actions";
+import {
+  changeSizeTypeAction,
+  changeProportionAction,
+  getCoffeeDataAction
+} from "~/actions";
 import CoffeeList from "~/components/CoffeeList";
-
-import axios from "axios";
 
 
 class Home extends PureComponent {
   state = {
   };
   componentDidMount() {
-    // fetch('../../json/coffee.json')
-    // .then(res => res.json())
-    // .then(res => console.log('ajax',res))
-    axios.get("../../json/coffee.json")
-    .then(res => {
-      res => console.log('ajax', res)
-    })
-  }
-  componentWillReceiveProps() { 
     // console.log('props',this.props);
+    this.props.getCoffeesData()
   }
+
   // 實作cx套件
   addClass = (moreClass = [], futherClass={}) => {
     const mapClass = (initAry, mapAry) => {
@@ -76,7 +72,7 @@ class Home extends PureComponent {
               onClick={e => {
                 this.props.history.push({
                   pathname: `/proportion`,
-                  search: `?pid=${coffee.pid}`                  
+                  search: `?pid=${coffee.pid}`              
                 });
               }}
               buttonName={'想喝 '+ coffee.name}
@@ -96,8 +92,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeSizeType: (index, value) => dispatch({ type:'CHANGE_SIZE_TYPE',index,value}),
-    changeProportion: (proportion, index, value) => dispatch({ type: 'CHANGE_PROPORTION', proportion, index, value })
+    getCoffeesData: () => dispatch(getCoffeeDataAction()),
+    changeSizeType: (index, value) => dispatch(changeSizeTypeAction(index, value)),
+    changeProportion: (proportion, index, value) => dispatch(changeProportionAction(proportion, index, value))
   }
 }
 

@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import {
   withRouter
 } from "react-router-dom";
+import queryString from "query-string";
+
 import './style.scss';
 
-// import { addPersonHandler, delPersonHandler } from "../actions";
+import {
+  watchCoffeDataSagaAction,
+  getCoffeeDataAction
+} from "~/actions";
 const coffeeNameChinese = {
   Expresso: "義式濃縮",
   Americano: "美式咖啡",
@@ -28,10 +33,28 @@ const contentTypeChinese = {
 
 class Complete extends PureComponent {
   state ={
-
+    
   };
-  componentDidMount() {}
   
+  componentDidMount() {
+    this.checkRouter();
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    // console.log('coffee', this.props);
+    this.checkRouter();
+  }
+  
+  checkRouter = () => {
+    const {
+      watchCoffeeData,
+      coffees,
+      history,
+      location
+    } = this.props;
+    watchCoffeeData(coffees, history, location);
+  }
+
   // 實作cx套件
   addClass = (moreClass = [], futherClass={}) => {
     const mapClass = (initAry, mapAry) => {
@@ -72,18 +95,17 @@ class Complete extends PureComponent {
     return "";
   };
 
-
+  urlQuery = () => queryString.parse(this.props.location.search);
   render() {
-    console.log("Complete", this.props);
-    let idx = 0;
-    let pid = this.props.location.search.replace('?', '').split('=')[1] || '001';
-    let coffee = this.props.coffees.find((items, index) => {
-      if (items.pid === pid) {
-        idx = index;
-        return true;
-      }
-      return false;
-    })
+    let pid = this.urlQuery().pid;
+    let coffee = this.props.coffees.find(items => items.pid === pid);
+    // 因為資料目前是由 redux 去get ，若網頁reload，redux消失
+    // 雖然組件有在willmount去get資料然後re-render在view
+    // 但第一次render方法中利用 querystring所查詢到的產品物件式undefined
+    // 依使用屬性就抱錯了，所以必須在第一次先加防呆預防資料還沒取到
+    // 但卻先使用物件的屬性的錯誤，如果有該找到產品物件才render結果
+    if (coffee === undefined) return <div className="d-flex justify-content-center align-items-center">資料加載中...</div>
+
     return (
       <div className="Complete">
         <div className="container">
@@ -91,8 +113,9 @@ class Complete extends PureComponent {
             <ul className="CompleteDetails">
               <li>
                 <div className="CompleteDetailTitle">訂單編號 :</div>
-                <div className="CompleteDetailContent">123456</div>
+                <div className="CompleteDetailContent">{`${+new Date()}${coffee.pid}`}</div>
               </li>
+              
               <li>
                 <div className="CompleteDetailTitle">品名 :</div>
                 <div className="CompleteDetailContent">{coffeeNameChinese[coffee.name]}</div>
@@ -137,6 +160,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    watchCoffeeData: (coffees = [], history, location) => dispatch(watchCoffeDataSagaAction(coffees, history, location)),
+    getCoffeesData: () => dispatch(getCoffeeDataAction())
   }
 }
 
