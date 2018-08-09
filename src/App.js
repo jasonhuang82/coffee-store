@@ -11,19 +11,12 @@ import "./style/global.scss";
 // router
 import ScrollToTop from "./components/ScrollToTop";
 
+// 
 import Header from "./containers/Header";
 import Home from "./containers/Home";
 import Proportion from "./containers/Proportion";
 import Complete from "./containers/Complete";
-/*
-<ul>
-  <li>
-    <Link to="/">Home</Link>
-    <Link to="/proportion">persons</Link>
-    <Link to="/complete">complete</Link>
-  </li>
-</ul>
-*/
+
 class App extends Component {
   baseName = (() => {
     if (process.env.NODE_ENV === 'development') return  '/';
@@ -31,9 +24,7 @@ class App extends Component {
     
   })()
   componentDidMount() {
-    console.log('process.env', process.env.NODE_ENV);
-    
-    
+    // console.log('process.env', process.env.NODE_ENV);
   }
   render() {
     return (
@@ -41,11 +32,11 @@ class App extends Component {
         <ScrollToTop>
           <div className="App">
             <Header />
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/proportion" component={Proportion} />
-              <Route path="/complete" component={Complete} />
-            </Switch>
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/proportion" component={Proportion} />
+                <Route path="/complete" component={Complete} />
+              </Switch>
           </div>
         </ScrollToTop>
       </Router>

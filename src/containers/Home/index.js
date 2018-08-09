@@ -76,6 +76,8 @@ class Home extends PureComponent {
                 });
               }}
               buttonName={'想喝 '+ coffee.name}
+              onRangeChange = {this.props.changeProportion}
+              onSelectChange={this.props.changeSizeType}
             />
           ))}
           

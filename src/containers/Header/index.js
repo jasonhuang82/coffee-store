@@ -65,7 +65,7 @@ class Header extends PureComponent {
           currentTitle = "已完成預定囉!";
           break;
         default:
-          currentTitle = "要喝多少呢?";
+          currentTitle = "今天想喝甚麼呢?";
           break;
       }
       return <h2>{currentTitle}</h2>;

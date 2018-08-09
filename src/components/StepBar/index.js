@@ -8,7 +8,7 @@ class StepBar extends Component {
   static defaultProps = {
     stepList: [
       {
-        title: '尺寸',
+        title: '口味',
         router: ''
       },
       {

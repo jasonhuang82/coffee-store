@@ -30,17 +30,19 @@ const SelectCoffee = ({ coffee, index, onChange}) => {
   const cupType = ["small", "medium", "big", "mock"];
   
   return (
-    <select
-      className="my-3"
-      value={coffee.type}
-      onChange={e => { onChange( index , e.target.value) }} 
-    >
-      {cupType.map((items, i) => (
-        <option value={items} key={i}>
-          {cupTypeChinese[items]}
-        </option>
-      ))}
-    </select>
+    <div className="dropDownList">
+      <select
+        className="my-3"
+        value={coffee.type}
+        onChange={e => { onChange(index, e.target.value) }}
+      >
+        {cupType.map((items, i) => (
+          <option value={items} key={i}>
+            {cupTypeChinese[items]}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
@@ -48,15 +50,18 @@ const RangeBar = ({ coffee, index, onChange}) => {
   
   const contentType = ["bubble", "milk", "water", "coffee"];
   return contentType.map((type, i) => (
-    <div key={i}>
-      <h3>{contentTypeChinese[type]}</h3>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={coffee[type]}
-        onChange={e => { onChange(type,index,e.target.value) }}
-      />
+    <div key={i} className="controlPanelRange">
+      <h4>{contentTypeChinese[type]}</h4>
+      <div className="rangeInput ">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value={coffee[type]}
+          onChange={e => { onChange(type, index, e.target.value) }}
+        />
+      </div>
     </div>
   ))
 
@@ -154,7 +159,7 @@ class CoffeeList extends Component {
             <RangeBar
               coffee={this.props.coffeeData}
               index={this.props.coffeeIdx}
-              onChange={this.props.changeProportion}
+              onChange={this.props.onRangeChange}
             />
           </div>
           {(this.props.buttonName && this.props.onClick) && (

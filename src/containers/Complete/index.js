@@ -106,6 +106,22 @@ class Complete extends PureComponent {
     // 但卻先使用物件的屬性的錯誤，如果有該找到產品物件才render結果
     if (coffee === undefined) return <div className="d-flex justify-content-center align-items-center">資料加載中...</div>
 
+    // 算出成分個別的比例
+    
+    // 1.先取所有咖啡的key
+    let coffeeProportionArr = Object.keys(contentTypeChinese);
+    // 2.去做 reduce 算出所有成分目前的總比例
+    let totalProportion = coffeeProportionArr.reduce((total,curr) => {
+      total += parseInt(coffee[curr]);
+      return total;
+    },0)
+    // 3.在做map去拿總比例去對格別資料算佔的比例並做結構整理
+    coffeeProportionArr = coffeeProportionArr.map((type,idx) => {
+      return {
+        name: contentTypeChinese[type],
+        proportion: parseInt((coffee[type] / totalProportion)*100)
+      };
+    })
     return (
       <div className="Complete">
         <div className="container">
@@ -128,8 +144,8 @@ class Complete extends PureComponent {
                 <div className="CompleteDetailTitle">比例 :</div>
                 <div className="CompleteDetailContent">
                   <ul>
-                    {Object.keys(contentTypeChinese).map((type,idx) => (
-                      <li key={idx}>{contentTypeChinese[type]}-{coffee[type]}%</li>
+                    {coffeeProportionArr.map((coffeeProportion,idx) => (
+                      <li key={idx}>{coffeeProportion.name}-{coffeeProportion.proportion}%</li>
                     ))}
                   </ul>
                 </div>

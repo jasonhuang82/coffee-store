@@ -121,6 +121,12 @@ select {
   .controlPanel{
     display: none;
   }
+  .controlPanelRange{
+    margin-bottom: 30px;
+    h4{
+      margin-bottom: 15px;
+    }
+  }
   &.isEdit {
     .controlPanel {
       display: block;

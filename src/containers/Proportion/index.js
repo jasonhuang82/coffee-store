@@ -105,6 +105,8 @@ class Proportion extends PureComponent {
             coffeeData = {coffee}
             isEdit
             onClick={e => this.goOrderPage(coffee.pid)}
+            onRangeChange = {this.props.changeProportion}
+            onSelectChange={this.props.changeSizeType}
           />
           <div className="d-flex justify-content-center align-items-center py-4">
             <button className="btn btn-primary mr-4"
@@ -112,7 +114,7 @@ class Proportion extends PureComponent {
                 this.props.history.goBack()
               }}
             >
-              想換尺寸嗎
+              想換口味嗎?
             </button>
             <button className="btn btn-primary" 
               onClick={e => this.goOrderPage(coffee.pid)}
